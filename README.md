@@ -1,2 +1,2 @@
 # MajorProject
-Airbnb full end to end website
+Wanderlust full end-to-end website
