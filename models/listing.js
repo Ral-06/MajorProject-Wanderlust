@@ -8,25 +8,30 @@ const listingSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+        // required: true
     },
     image: {
-        type: String,
-        default: "https://pin.it/7ITQA8dZc",
-        set: (v) => v === "" ? "https://pin.it/7ITQA8dZc" : v,
-        // set: (v) => v === "" ? "https://pin.it/7KreYFjJV" : v,
+        filename: {
+            type: String,
+            default: "listingimage"
+        },
+        url: {
+            type: String,
+            set: (v) => v === "" ? "https://pin.it/7ITQA8dZc" : v,
+            default: "https://pin.it/7ITQA8dZc"
+        }
     },
     price: {
         type: Number,
-        required: true
+        // required: true
     },
     location: {
         type: String,
-        required: true
+        // required: true
     },
     country: {
         type: String,
-        required: true
+        // required: true
     },
 });
 
