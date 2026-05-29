@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const port = 3000;
 const path = require('path');
 
-// Set EJS as the templating engine
+// 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.urlencoded({extended: true}));
 
 // Import Models
 const Listing = require('./models/listing');
@@ -43,3 +44,9 @@ app.get('/listings', async (req, res) => {
   res.render('listings/index.ejs', {allListing});
 });
 //...
+
+app.get('/listings/:id', async (req, res) =>{
+  const {id} = req.params;
+  const listing = await Listing.findById(id);
+  res.render('listings/show.ejs', {listing});
+})
