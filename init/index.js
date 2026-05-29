@@ -16,14 +16,18 @@ async function main() {
 }
 //...
 
+// Initialize the database with sample data
 const initDB = async () => {
     await Listing.deleteMany({});
     await Listing.insertMany(initData.data);
     console.log('Data was initialized successfully!');
 }
+//...
 
+// Call the database initialization function
 initDB().then(() => {
     console.log('Database initialization complete');
 }).catch(err => {
     console.error('Error initializing database:', err);
 });
+//...

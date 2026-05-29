@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const port = 3000;
+const path = require('path');
+
+// Set EJS as the templating engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Import Models
 const Listing = require('./models/listing');
@@ -32,15 +37,9 @@ app.get('/', (req, res) => {
 });
 //...
 
-app.get('/testlisting', async (req, res) => {
-  let sampleListing = new Listing({
-    title: 'New Villa in Sri Ganganagar',
-    description: 'This is a sample listing for testing purposes.',
-    price: 100,
-    location: 'Sri Ganganagar, Rajasthan',
-    country: 'India'
-  });
-  await sampleListing.save();
-  console.log('Sample listing saved to database');
-  res.send('Sample listing created and saved to database!');
+// Route to get all listings
+app.get('/listings', async (req, res) => {
+  const allListing = await Listing.find({});
+  res.render('listings/index.ejs', {allListing});
 });
+//...
