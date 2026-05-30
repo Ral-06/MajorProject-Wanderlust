@@ -4,14 +4,15 @@ const mongoose = require('mongoose');
 const port = 3000;
 const path = require('path');
 const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
 
 // Middleware
-app.use(methodOverride('_method'));
-
-// 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Import Models
 const Listing = require('./models/listing');
