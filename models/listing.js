@@ -17,8 +17,8 @@ const listingSchema = new Schema({
         },
         url: {
             type: String,
-            set: (v) => v === "" ? "https://pin.it/7ITQA8dZc" : v,
-            default: "https://pin.it/7ITQA8dZc"
+            default: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1vdW50YWlufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
+            set: (v) => v === "" ? 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1vdW50YWlufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60' : v,
         }
     },
     price: {
