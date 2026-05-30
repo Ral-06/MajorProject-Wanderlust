@@ -3,6 +3,10 @@ const app = express();
 const mongoose = require('mongoose');
 const port = 3000;
 const path = require('path');
+const methodOverride = require('method-override');
+
+// Middleware
+app.use(methodOverride('_method'));
 
 // 
 app.set('view engine', 'ejs');
@@ -64,4 +68,20 @@ app.post('/listings', async (req, res) => {
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   res.redirect('/listings');
+});
+//...
+
+// Route to show form for editing a listing
+app.get('/listings/:id/edit', async (req, res) => {
+  const {id} = req.params;
+  const listing = await Listing.findById(id);
+  res.render('listings/edit.ejs', {listing});
+});
+//...
+
+// Route to handle form submission for updating a listing
+app.put('/listings/:id', async (req, res) => {
+  const {id} = req.params;
+  await Listing.findByIdAndUpdate(id, {...req.body.listing});
+  res.redirect(`/listings/${id}`);
 });
