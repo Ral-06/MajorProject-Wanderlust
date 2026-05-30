@@ -1,4 +1,11 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+.nav-link {
+    color: #222222 !important;
 }
