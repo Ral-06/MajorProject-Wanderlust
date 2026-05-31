@@ -100,3 +100,19 @@ body {
     background-color: #fe424d !important;
     border: none !important;
 }
+
+/* Show page (show.ejs) */
+
+.show-img {
+    height: 40vh !important;
+    object-fit: cover !important;
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
