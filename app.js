@@ -50,13 +50,13 @@ app.get('/listings', async (req, res) => {
 });
 //...
 
-// Route to show form for creating a new listing
+// show form for creating a new listing
 app.get('/listings/new', (req, res) => {
   res.render('listings/new.ejs');
 });
 //...
 
-// Route to get a specific listing by ID
+// get a specific listing by ID
 app.get('/listings/:id', async (req, res) =>{
   const {id} = req.params;
   const listing = await Listing.findById(id);
@@ -64,15 +64,20 @@ app.get('/listings/:id', async (req, res) =>{
 });
 //...
 
-// Route to handle form submission for creating a new listing
-app.post('/listings', async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect('/listings');
+// creating a new listing
+app.post('/listings', async (req, res, next) => {
+  try {
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect('/listings');
+  }
+  catch (err) {
+    next(err);
+  }
 });
 //...
 
-// Route to show form for editing a listing
+// show form for editing a listing
 app.get('/listings/:id/edit', async (req, res) => {
   const {id} = req.params;
   const listing = await Listing.findById(id);
@@ -93,4 +98,9 @@ app.delete('/listings/:id', async (req, res) => {
   const {id} = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect('/listings');
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  res.send('Something went wrong!');
 });
