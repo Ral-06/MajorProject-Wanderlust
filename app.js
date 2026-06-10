@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const ExpressError = require('./utils/ExpressError.js');
+const {listingSchema} = require('./schema.js');
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -33,6 +34,17 @@ async function main() {
 }
 //...
 
+// Validation middleware for listing data
+const validateListing = (req, res, next) => {
+  let {error} = listingSchema.validate(req.body);
+  let errMsg = error.details.map(el => el.message).join(', ');
+  if(error) {
+    throw new ExpressError(400, errMsg);
+  }
+  else {
+    next();
+  }
+}
 
 // Root route
 app.get('/', (req, res) => {
@@ -62,10 +74,7 @@ app.get('/listings/:id', wrapAsync(async (req, res) =>{
 //...
 
 // Create Route - handle the creation of a new listing
-app.post('/listings', wrapAsync(async (req, res, next) => {
-  if(!req.body.listing) {
-    throw new ExpressError(400, 'Send valid data for listing');
-  }
+app.post('/listings', validateListing, wrapAsync(async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   res.redirect('/listings');
@@ -81,10 +90,7 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 //...
 
 // Update Route - handle the update of a listing
-app.put('/listings/:id', wrapAsync(async (req, res) => {
-  if(!req.body.listing) {
-    throw new ExpressError(400, 'Send valid data for listing');
-  }
+app.put('/listings/:id', validateListing, wrapAsync(async (req, res) => {
   const {id} = req.params;
   await Listing.findByIdAndUpdate(id, {...req.body.listing});
   res.redirect(`/listings/${id}`);
