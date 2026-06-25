@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 // Import Models
 const Listing = require('./models/listing');
+const Review = require('./models/review');
 
 // MongoDB connection
 const MONGO_URL = 'mongodb://localhost:27017/wanderlust';
@@ -103,6 +104,17 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
   await Listing.findByIdAndDelete(id);
   res.redirect('/listings');
 }));
+
+// Review Route - handle the creation of a review for a listing
+app.post('/listings/:id/reviews', async(req, res) => {
+  let listing = await Listing.findById(req.params.id);
+  let newReview = new Review(req.body.review);
+
+  listing.reviews.push(newReview);
+  await newReview.save();
+  await listing.save();
+  res.redirect(`/listings/${listing._id}`);
+});
 
 // Catch-all route for handling 404 errors
 app.use((req, res, next) => {
