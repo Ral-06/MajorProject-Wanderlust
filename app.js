@@ -102,7 +102,7 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 }));
 //...
 
-// Update Route - handle the update of a listing
+// Update Route
 app.put('/listings/:id', validateListing, wrapAsync(async (req, res) => {
   const {id} = req.params;
   await Listing.findByIdAndUpdate(id, {...req.body.listing});
@@ -110,7 +110,7 @@ app.put('/listings/:id', validateListing, wrapAsync(async (req, res) => {
 }));
 //...
 
-// Delete Route - handle the deletion of a listing
+// Delete Route
 app.delete('/listings/:id', wrapAsync(async (req, res) => {
   const {id} = req.params;
   await Listing.findByIdAndDelete(id);
