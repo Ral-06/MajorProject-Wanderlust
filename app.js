@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 // Routes
 const listings = require('./routes/listing.js');
@@ -34,6 +35,7 @@ async function main() {
 }
 //...
 
+// Session configuration
 const sessionConfig = {
   secret: 'mysupersecretcode',
   resave: false,
@@ -44,13 +46,22 @@ const sessionConfig = {
     httpOnly: true
   }
 };
-app.use(session(sessionConfig));
 
-// Root route
+// Root route;
 app.get('/', (req, res) => {
   res.send('Hi, welcome to the Express server!');
 });
 //...
+
+// Use session and flash middleware
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  next();
+});
+
 
 // Use the routes
 app.use('/listings', listings);
