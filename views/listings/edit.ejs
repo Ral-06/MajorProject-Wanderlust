@@ -3,6 +3,12 @@
     <div class="col-8 offset-2">
         <h3>Edit Listing</h3>
         <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+
+            <div class="offset-4 mb-3 mt-3">
+                Listing Original Image<br>
+                <img src="<%= originalImageUrl %>">
+            </div>
+            
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" placeholder="Enter Title" name="listing[title]" value="<%= listing.title %>" id="title" class="form-control" required>
