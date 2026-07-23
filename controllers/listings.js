@@ -21,8 +21,16 @@ module.exports.showListing = async (req, res) =>{
 };
 
 module.exports.createListing = async (req, res, next) => {
+  if (!req.file) {
+    req.flash('error', 'Please select an image for the listing.');
+    return res.redirect('/listings/new');
+  }
+  let url = req.file.path;
+  let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
+  newListing.image = {url, filename};
+
   await newListing.save();
   req.flash('success', 'Successfully created a new listing!');
   res.redirect('/listings');

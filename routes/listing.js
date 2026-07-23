@@ -6,12 +6,16 @@ const Listing = require('../models/listing');
 
 const listingController = require('../controllers/listings.js');
 
+const multer = require('multer');
+const {storage} = require('../cloudConfig.js');
+const upload = multer({storage});
+
 router.route('/')
     // Index Route - get all listings
     .get(wrapAsync(listingController.index))
 
     // Create Route - handle the creation of a new listing
-    .post(isLoggedIn, validateListing, wrapAsync(listingController.createListing)
+    .post(isLoggedIn, validateListing, upload.single('listing[image][url]'), wrapAsync(listingController.createListing)
 );
     
 
