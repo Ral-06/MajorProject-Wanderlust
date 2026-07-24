@@ -55,11 +55,11 @@ const sessionConfig = {
   }
 };
 
-// Root route;
-app.get('/', (req, res) => {
-  res.send('Hi, welcome to the Express server!');
-});
-//...
+// // Root route;
+// app.get('/', (req, res) => {
+//   res.send('Hi, welcome to the Express server!');
+// });
+// //...
 
 // Use session and flash middleware
 app.use(session(sessionConfig));

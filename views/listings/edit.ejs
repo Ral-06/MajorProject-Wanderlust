@@ -26,6 +26,25 @@
             </div>
 
             <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select name="listing[category]" id="category" class="form-select" required>
+                    <option value="">Select a category</option>
+                    <option value="rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+                    <option value="cities" <%= listing.category === 'cities' ? 'selected' : '' %>>Cities</option>
+                    <option value="beach" <%= listing.category === 'beach' ? 'selected' : '' %>>Beach</option>
+                    <option value="farms" <%= listing.category === 'farms' ? 'selected' : '' %>>Farms</option>
+                    <option value="swiming_pools" <%= listing.category === 'swiming_pools' ? 'selected' : '' %>>Swimming Pools</option>
+                    <option value="mountains" <%= listing.category === 'mountains' ? 'selected' : '' %>>Mountains</option>
+                    <option value="castles" <%= listing.category === 'castles' ? 'selected' : '' %>>Castles</option>
+                    <option value="camping" <%= listing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+                    <option value="arctic" <%= listing.category === 'arctic' ? 'selected' : '' %>>Arctic</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please choose a category.
+                </div>
+            </div>
+
+            <div class="mb-3">
                 <label for="image" class="form-label">Upload New Image</label>
                 <input type="file" name="listing[image][url]" id="image" class="form-control">
             </div>

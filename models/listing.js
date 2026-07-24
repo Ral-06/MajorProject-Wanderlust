@@ -54,6 +54,10 @@ const listingSchema = new Schema({
             type: [Number],
             required: true
         },
+    },
+    category: {
+        type: String,
+        enum: ["rooms", "cities", "beach", "farms", "swiming_pools", "mountains", "castles", "camping", "arctic"],
     }
 });
 

@@ -23,6 +23,25 @@
             </div>
             
             <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select name="listing[category]" id="category" class="form-select" required>
+                    <option value="">Select a category</option>
+                    <option value="rooms">Rooms</option>
+                    <option value="cities">Cities</option>
+                    <option value="beach">Beach</option>
+                    <option value="farms">Farms</option>
+                    <option value="swiming_pools">Swimming Pools</option>
+                    <option value="mountains">Mountains</option>
+                    <option value="castles">Castles</option>
+                    <option value="camping">Camping</option>
+                    <option value="arctic">Arctic</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please choose a category.
+                </div>
+            </div>
+
+            <div class="mb-3">
                 <label for="image" class="form-label">Upload Listing Image</label>
                 <input type="file" name="listing[image][url]" id="image" class="form-control" required>
             </div>
@@ -44,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            
+                        
             <div class="mb-3">
                 <label for="location" class="form-label">Location</label>
                 <input type="text" placeholder="Enter Location" name="listing[location]" id="location" class="form-control" required>

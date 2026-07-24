@@ -1,5 +1,48 @@
 <% layout('/layouts/boilerplate') %>
 
+<div id="filters">
+    <a href="/listings" class="filter <%= !category ? 'active' : '' %>">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>All Listings</p>
+    </a>
+    <a href="/listings?category=rooms" class="filter <%= category === 'rooms' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-bed"></i> </div>
+        <p>Rooms</p>
+    </a>
+    <a href="/listings?category=cities" class="filter <%= category === 'cities' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-city"></i></div>
+        <p>Iconic cities</p>
+    </a>
+    <a href="/listings?category=beach" class="filter <%= category === 'beach' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-umbrella-beach"></i> </div>
+        <p>Beach</p>
+    </a>
+    <a href="/listings?category=farms" class="filter <%= category === 'farms' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-cow"></i> </div>
+        <p>Farms</p>
+    </a>
+    <a href="/listings?category=swiming_pools" class="filter <%= category === 'swiming_pools' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-person-swimming"></i> </div>
+        <p>Amazing pools</p>
+    </a>
+    <a href="/listings?category=mountains" class="filter <%= category === 'mountains' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-mountain"></i> </div>
+        <p>Mountains</p>
+    </a>
+    <a href="/listings?category=castles" class="filter <%= category === 'castles' ? 'active' : '' %>">
+        <div> <i class="fa-brands fa-fort-awesome"></i> </div>
+        <p>Castles</p>
+    </a>
+    <a href="/listings?category=camping" class="filter <%= category === 'camping' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-campground"></i> </div>
+        <p>Camping</p>
+    </a>
+    <a href="/listings?category=arctic" class="filter <%= category === 'arctic' ? 'active' : '' %>">
+        <div> <i class="fa-regular fa-snowflake"></i> </div>
+        <p>Arctic</p>
+    </a>
+</div>
+
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <% for (let listing of allListing) { %>
         <a href="/listings/<%= listing._id %>" class="listing-links">
@@ -13,6 +56,8 @@
                 <div class="card-body">
                     <p class="card-text">   
                         <b><%= listing.title %></b>
+                        <br>
+                        <small class="text-muted"><%= listing.category %></small>
                         <br>
                         &#8377;<%= listing.price.toLocaleString('en-IN') %> / Night
                     </p>
