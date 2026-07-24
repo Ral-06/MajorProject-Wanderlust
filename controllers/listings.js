@@ -33,8 +33,8 @@ module.exports.createListing = async (req, res, next) => {
     req.flash('error', 'Please select an image for the listing.');
     return res.redirect('/listings/new');
   }
-  let url = req.file.path;
-  let filename = req.file.filename;
+  let url = req.file.path || req.file.secure_url || req.file.url;
+  let filename = req.file.filename || req.file.public_id;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = {url, filename};
@@ -62,9 +62,9 @@ module.exports.updateListing = async (req, res) => {
   const {id} = req.params;
   let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing});
 
-  if(typeof req.file !== "undefined") {
-    let url = req.file.path;
-    let filename = req.file.filename;
+  if(req.file) {
+    let url = req.file.path || req.file.secure_url || req.file.url;
+    let filename = req.file.filename || req.file.public_id;
     listing.image = {url, filename};
     await listing.save();
   }
