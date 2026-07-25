@@ -81,6 +81,7 @@ body {
 #filters {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 .filter {
     text-align: center;
@@ -100,6 +101,18 @@ body {
 .filter.active {
     opacity: 1;
     font-weight: 600;
+}
+.tax-info {
+    display: none;
+}
+.tax-toggle {
+    border: 2px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 1rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 /* Card Effects */

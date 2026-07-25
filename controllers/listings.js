@@ -3,9 +3,19 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+const escapeRegex = (text) => {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+};
+
 module.exports.index = async (req, res) => {
-  const { category } = req.query;
+  const { category, search } = req.query;
   const filter = category ? { category } : {};
+  
+  if(search){
+    const regex = new RegExp(escapeRegex(search), 'i');
+    const allListing = await Listing.find( {$or: [ {title: regex}, {country: regex}, { description: regex}, {location: regex} ] });
+    return res.render('listings/index.ejs', { allListing, category });
+  }
 
   const allListing = await Listing.find(filter);
   res.render('listings/index.ejs', { allListing, category });
