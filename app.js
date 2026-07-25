@@ -30,7 +30,8 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, '/public')));
 
 // MongoDB connection
-const MONGO_URL = 'mongodb://localhost:27017/wanderlust';
+// const MONGO_URL = 'mongodb://localhost:27017/wanderlust';
+const dbUrl = process.env.ATLASDB_URL;
 
 main().then(() => {
   console.log('Connected to MongoDB');
@@ -39,7 +40,7 @@ main().then(() => {
 });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 //...
 

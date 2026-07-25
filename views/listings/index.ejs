@@ -5,6 +5,14 @@
         <div><i class="fa-solid fa-fire"></i></div>
         <p>All Listings</p>
     </a>
+    <a href="/listings?category=villa" class="filter <%= category === 'villa' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-bed"></i> </div>
+        <p>Villa</p>
+    </a>
+    <a href="/listings?category=house" class="filter <%= category === 'house' ? 'active' : '' %>">
+        <div> <i class="fa-solid fa-bed"></i> </div>
+        <p>House</p>
+    </a>
     <a href="/listings?category=rooms" class="filter <%= category === 'rooms' ? 'active' : '' %>">
         <div> <i class="fa-solid fa-bed"></i> </div>
         <p>Rooms</p>

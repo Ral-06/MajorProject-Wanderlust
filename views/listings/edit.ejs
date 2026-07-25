@@ -29,6 +29,8 @@
                 <label for="category" class="form-label">Category</label>
                 <select name="listing[category]" id="category" class="form-select" required>
                     <option value="">Select a category</option>
+                    <option value="villa" <%= listing.category === 'villa' ? 'selected' : '' %>>Villa</option>
+                    <option value="house" <%= listing.category === 'house' ? 'selected' : '' %>>House</option>
                     <option value="rooms" <%= listing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
                     <option value="cities" <%= listing.category === 'cities' ? 'selected' : '' %>>Cities</option>
                     <option value="beach" <%= listing.category === 'beach' ? 'selected' : '' %>>Beach</option>
