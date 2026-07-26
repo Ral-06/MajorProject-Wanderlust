@@ -31,7 +31,6 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, '/public')));
 
 // MongoDB connection
-// const MONGO_URL = 'mongodb://localhost:27017/wanderlust';
 const dbUrl = process.env.ATLASDB_URL;
 
 main().then(() => {
@@ -48,7 +47,7 @@ async function main() {
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: 'mysupersecretcode'
+    secret: process.env.SECRET
   },
   touchAfter: 24 * 3600
 });
@@ -60,7 +59,7 @@ store.on("error", (err) => {
 // Session configuration
 const sessionConfig = {
   store,
-  secret: 'mysupersecretcode',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -69,12 +68,6 @@ const sessionConfig = {
     httpOnly: true
   }
 };
-
-// // Root route;
-// app.get('/', (req, res) => {
-//   res.send('Hi, welcome to the Express server!');
-// });
-// //...
 
 // Use session and flash middleware
 app.use(session(sessionConfig));
@@ -94,17 +87,6 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user; // Make the current user available in all templates
   next();
 });
-
-// app.get('/demouser', async (req, res) => {
-//   let fakeUser = new User({
-//     email: 'student@gmail.com',
-//     username: 'delta-student'
-//   });
-
-//   let registeredUser = await User.register(fakeUser, "helloworld");
-//   res.send(registeredUser);
-// });
-
 
 // Use the routes
 app.use('/listings', listingRouter);
